@@ -9,17 +9,20 @@ public class PlayerShooting : MonoBehaviour
     public GameObject FireAnim;
     public Transform PlayerCam;
     public GameObject Explosion;
-    public AudioSource Bgm;
+    //public AudioSource Bgm;
+    public  static int scoreValue = 10;
+    public static int finalScore;
 
 
 
     void Start()
     {
-        this.Bgm.Play();
+  
     }
 
     void FixedUpdate()
     {
+        //this.Bgm.Play();
         if (Input.GetButtonDown("Fire1"))
         {
             this.RocketSound.Play();
@@ -34,6 +37,8 @@ public class PlayerShooting : MonoBehaviour
                 if (hit.transform.gameObject.CompareTag("Enemy"))
                 {
                    Instantiate(this.Explosion, hit.point, Quaternion.identity);
+                    scoreManager.Score += scoreValue;
+                    finalScore = scoreManager.Score;
                     Destroy(hit.transform.gameObject);
                 }
             }

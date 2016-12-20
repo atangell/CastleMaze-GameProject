@@ -11,15 +11,17 @@ public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.player = GameObject.FindWithTag ("Player").transform;
-        foreach (GameObject playerLoaded in player)
-        {
-            Agent = playerLoaded.GetComponent<NavMeshAgent>();
-        }
+        player = GameObject.FindWithTag ("Player").transform;
+       // foreach (GameObject playerLoaded in player)
+        //{
+        //    Agent = playerLoaded.GetComponent<NavMeshAgent>();
+        //}
     }
 	
 	// Update is called once per frame
 	void Update () {
-		this.Agent.SetDestination (this.player.position);
+
+        Agent.SetDestination (player.position);
+
 	}
 }

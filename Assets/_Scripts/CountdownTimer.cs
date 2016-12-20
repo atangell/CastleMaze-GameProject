@@ -2,64 +2,69 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class CountdownTimer : MonoBehaviour
 {
+    //    public float timeLeft = 300.0f;
+    //    public bool stop = true;
 
-    public Text timerText;
-    private float startTimer;
-    private bool finished = false;
-    String Score;
-    int time;
-    // Use this for initialization
-    void Start()
+    //    private float minutes;
+    //    private float seconds;
+
+    //    public Text text;
+
+    //    public void startTimer(float from)
+    //    {
+    //        stop = false;
+    //        timeLeft = from;
+    //        Update();
+    //        StartCoroutine(updateCoroutine());
+    //    }
+
+    //    void Update()
+    //    {
+    //        if (stop) return;
+    //        timeLeft -= Time.deltaTime;
+
+    //        minutes = Mathf.Floor(timeLeft / 60);
+    //        seconds = timeLeft % 60;
+    //        if (seconds > 59) seconds = 59;
+    //        if (minutes < 0)
+    //        {
+    //            stop = true;
+    //            minutes = 0;
+    //            seconds = 0;
+    //        }
+    //        //        fraction = (timeLeft * 100) % 100;
+    //    }
+
+    //    private IEnumerator updateCoroutine()
+    //    {
+    //        while (!stop)
+    //        {
+    //            text.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+    //            yield return new WaitForSeconds(0.2f);
+    //        }
+    //    }
+    //}
+
+    float timeLeft = 120;
+
+    Text text;
+
+    void Awake()
     {
-        startTimer = Time.time;
+        text = GetComponent<Text>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if (finished)
-
-            return;
-
-
-
-        float t = Time.time - startTimer;
-        string minutes = ((int)t / 60).ToString();
-        string seconds = (t % 60).ToString("f2");
-
-        timerText.text = minutes + ":" + seconds;
-
-        time = Convert.ToInt32(minutes);
-
-        if (time >= 0 && time < 1)
+        timeLeft -= Time.deltaTime;
+        text.text = "Time Left:" + timeLeft;
+        if (timeLeft <= 0)
         {
-            Score = "30";
+            SceneManager.LoadScene("StartMenu");
         }
-
-        else if (time >= 1 && time < 2)
-        {
-            Score = "20";
-        }
-        else if (time >= 2 && time <= 3)
-        {
-            Score = "10";
-        }
-        else
-        {
-            Score = "0";
-        }
-
-    }
-    public void finish()
-    {
-        finished = true;
-        timerText.color = Color.red;
-
-        timerText.text = "Your Score is " + Score;
-
     }
 }
